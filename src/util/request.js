@@ -138,6 +138,15 @@ export const reqUserDel=(uid)=>{
    })
 }
 
+// 管理员登录
+export const reqUserLogin=(data)=>{
+    return axios({
+        url:baseUrl+'/api/userlogin',
+        method:'post',
+        data:data
+    })
+}
+
 // 获取一条数据
 export const reqUserOne=(params)=>{
     return axios({
@@ -259,3 +268,98 @@ export const reqSpecEdit=(form)=>{
         data:qs.stringify(form)
     })
 }
+
+
+///////////////////商品管理///////////////////////////
+
+// 点击添加商品管理
+export const reqGoodAdd=(form)=>{
+    var data = new FormData();
+    for(var i in form){
+        data.append(i,form[i])
+    }
+    return axios({
+        url:baseUrl+'/api/goodsadd',
+        method:'post',
+        data:data
+    })
+}
+
+// 商品管理列表
+export const reqGoodList=(params)=>{
+    return axios({
+        url:baseUrl+'/api/goodslist',
+        method:'get',
+        params:params
+    })
+}
+
+// 商品管理删除
+export const reqGoodDel=(id)=>{
+   return axios({
+       url:baseUrl+'/api/goodsdelete',
+       method:'post',
+       data:id
+   })
+}
+
+// 获取一条数据
+export const reqGoodOne=(params)=>{
+    return axios({
+        url:baseUrl+'/api/goodsinfo',
+        method:'get',
+        params:params
+    })
+}
+
+// 商品管理修改
+export const reqGoodEdit=(form)=>{
+    var data = new FormData();
+    for(var i in form){
+        data.append(i,form[i])
+    }
+    return axios({
+        url:baseUrl+'/api/goodsedit',
+        method:'post',
+        data:data
+    })
+}
+
+// 商品总数
+export const reqGoodCount=()=>{
+    return axios({
+      url:baseUrl+'/api/goodscount',
+      method:'get'
+    })
+    
+}
+
+
+///////////////////会员管理///////////////////////////
+
+// 会员列表
+export const reqVipList=()=>{
+    return axios({
+        url:baseUrl+'/api/memberlist',
+        method:'get'
+    })
+}
+
+// 获取一条数据
+export const reqVipOne=(params)=>{
+    return axios({
+        url:baseUrl+'/api/memberinfo',
+        method:'get',
+        params:params
+    })
+}
+
+// 管理员修改
+export const reqVipEdit=(form)=>{
+    return axios({
+        url:baseUrl+'/api/memberedit',
+        method:'post',
+        data:form
+    })
+}
+

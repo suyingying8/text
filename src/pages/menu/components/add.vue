@@ -10,7 +10,7 @@
           <el-select v-model="form.pid" placeholder="请选择">
             <el-option label="顶级菜单" :value="0"></el-option>
             <!-- 循环添加数据 -->
-            <el-option label="顶级菜单" :value="0"></el-option>
+            <el-option :label="item.title" :value="item.id" v-for="item in list" :key="item.id"></el-option>
           </el-select>
         </el-form-item>
 
@@ -20,7 +20,7 @@
         </el-form-item>
 
         <el-form-item label="菜单图标" :label-width="width" v-if="form.type==1">
-          <el-select v-model="form.icon" placeholder="请选择活动区域">
+          <el-select v-model="form.icon">
             <el-option label="星星" value="el-icon-star-on">
               <i class="el-icon-star-on"></i>
             </el-option>
@@ -84,7 +84,11 @@ export default {
       indexRouters: indexRouters,
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      list:'menu/list'
+    })
+  },
   watch: {},
   methods: {
 
@@ -143,7 +147,9 @@ export default {
 
     
   },
-  mounted() {},
+  mounted() {
+    this.reqMenuList()
+  },
 };
 </script>
 

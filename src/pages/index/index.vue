@@ -4,7 +4,7 @@
     <el-container>
       <el-aside width="200px">
         <el-menu
-          default-active="2"
+          default-active="/index/home"
           router
           class="el-menu-vertical-demo"
           unique-opened
@@ -12,7 +12,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-menu-item index="2">
+          <el-menu-item index="/index/home">
             <i class="el-icon-menu"></i>
             <span slot="title">首页</span>
           </el-menu-item>
@@ -46,16 +46,21 @@
         </el-menu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <div class="boxLeft">admin</div>
+          <div class="boxLeft">
+            <el-button type="primary" @click="quit">退出</el-button>
+          </div>
+        </el-header>
         <el-main>
-            <!-- 小导航 面包屑 -->
+          <!-- 小导航 面包屑 -->
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>{{$route.name}}</el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 二级路由出口 -->
           <div class="login_bottom">
-            <router-view></router-view>  
+            <router-view></router-view>
           </div>
         </el-main>
       </el-container>
@@ -64,14 +69,28 @@
 </template>
 
 <script>
+import {mapGetters,mapActions} from 'vuex'
 export default {
   components: {},
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+     ...mapGetters({
+      list:'login/list'
+    }),
+  },
   watch: {},
-  methods: {},
+  methods: {
+    ...mapActions({
+      requsetUserLogin:'login/requsetUserLogin'
+    }),
+    quit(){
+      this.requsetUserLogin({})
+      this.$router.push('/login')
+    }
+
+  },
   mounted() {},
 };
 </script>
@@ -96,8 +115,14 @@ export default {
   background-color: #e9eef3;
   color: #333;
 }
-.login_bottom{
-    margin-top: 15px;
+.login_bottom {
+  margin-top: 15px;
+}
+.topBox{
+  float: right;
+}
+.boxLeft{
+  float: right;
 }
 </style>
 

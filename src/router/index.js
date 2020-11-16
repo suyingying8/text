@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store/index.js'
 
 Vue.use(Router)
 
@@ -67,7 +68,7 @@ export const indexRouters=[
   },
 ]
 
-export default new Router({
+const router = new Router({
   mode:'history',
   routes: [
     {
@@ -95,3 +96,20 @@ export default new Router({
     }
   ]
 })
+
+// 全局守卫
+// router.beforeEach((to,from,next)=>{
+//   if(to.path=='/login'){
+//     next()
+//     return
+//   }
+//   if(store.state.user.list.menus){
+//     next()
+//   }else{
+//     next('/login')
+//   }
+// })
+
+
+
+export default router

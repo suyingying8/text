@@ -37,8 +37,6 @@
 
 <script>
 import { reqUserAdd, reqUserOne, reqUserEdit } from "../../../util/request";
-import { alertSuccess } from "../../../util/elart";
-
 import { mapGetters, mapActions } from "vuex";
 export default {
   props: ["info"],
@@ -56,8 +54,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      list: "user/list",
       roleList: "role/list",
+      page:'user/page',
+      total:'user/total'
     }),
   },
   watch: {},
@@ -65,6 +64,8 @@ export default {
     ...mapActions({
       requstUserList: "user/requstUserList",
       reqRoleList: "role/reqRoleList",
+      requstUserCount:'user/requstUserCount',
+      userPage:'user/userPage'
     }),
 
     // 隐藏
@@ -89,6 +90,7 @@ export default {
         this.empty();
         this.hid();
         this.requstUserList();
+        this.requstUserCount()
       });
     },
 
@@ -115,6 +117,7 @@ export default {
   mounted() {
     this.requstUserList();
     this.reqRoleList();
+    this.requstUserCount(this.page+1)
   },
 };
 </script>

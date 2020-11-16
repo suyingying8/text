@@ -2,25 +2,40 @@
   <div class="login">
     <div class="con">
       <h2>登录</h2>
-      <div><input type="text" placeholder="请输入用户名"></div>
-      <div><input type="text" placeholder="请输入密码"></div>
+      <div><input type="text" placeholder="请输入用户名" v-model="user.username"></div>
+      <div><input type="text" placeholder="请输入密码" v-model="user.password"></div>
       <div><button @click="index">登录</button></div>
     </div>
   </div>
 </template>
 
 <script>
+import {reqUserLogin} from '../../util/request'
+import {mapGetters,mapActions} from 'vuex';
 export default {
   components:{},
   data() {
     return {
+      user:{
+        username:'',
+        password:'',
+      }
     };
   },
   computed:{},
   watch:{},
   methods:{
+    ...mapActions({
+      requsetUserLogin:'login/requsetUserLogin'
+    }),
     index(){
-      this.$router.push('/index')
+      console.log(this.user);
+      reqUserLogin(this.user).then(res=>{
+        console.log(res);
+        this.requsetUserLogin(res.data.list)
+       this.$router.push('/index') 
+      })
+      
     }
   },
   mounted(){},
@@ -52,7 +67,7 @@ export default {
   width: 260px;
   height: 30px;
   margin-bottom: 15px;
-  text-indent: 1em;
+  /* text-indent: 1em; */
 }
 .con button{
   width: 260px;

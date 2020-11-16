@@ -32,12 +32,12 @@
     </el-table>
 
     <!-- 分页 -->
-    <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+    <el-pagination :page-size='2' background layout="prev, pager, next" :total="total" :current-page='page' @current-change='pageChange'></el-pagination>
   </div>
 </template>
 
 <script>
-import { reqUserDel } from "../../../util/request";
+import { reqUserDel, } from "../../../util/request";
 import { mapGetters, mapActions } from "vuex";
 import { alertSuccess } from "../../../util/elart";
 export default {
@@ -49,13 +49,24 @@ export default {
     ...mapGetters({
       list: "user/list",
       roleList: "role/list",
+      total:'user/total',//总数
+      page:'user/page'
     }),
   },
   watch: {},
   methods: {
     ...mapActions({
       requstUserList: "user/requstUserList",
+      reqRoleList:'role/reqRoleList',
+      requstUserCount:'user/requstUserCount',
+      userPage:'user/userPage',
+
     }),
+
+    // 页面切换
+    pageChange(p){
+        this.userPage(p)
+    },
 
     //   删除
     del(id) {
@@ -67,6 +78,8 @@ export default {
         reqUserDel({ uid: id }).then((res) => {
           this.requstUserList();
           alertSuccess(res.data.msg);
+          this.requstUserCount()
+          this.userPage(1)
         });
       });
     },
@@ -78,6 +91,8 @@ export default {
   },
   mounted() {
     this.requstUserList();
+    this.reqRoleList()
+    this.requstUserCount();
   },
 };
 </script>

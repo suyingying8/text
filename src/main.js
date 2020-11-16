@@ -17,6 +17,9 @@ Vue.prototype.$preImg = 'http://localhost:3000'
 // 引入静态资源
 import './assets/css/reset.css'
 
+
+
+
 // 导入store
 import store from './store/index'
 /* eslint-disable no-new */
